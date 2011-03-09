@@ -1,7 +1,10 @@
 ;;;; show page-break (^L) separated files as slides.
 ;;;;
 ;;;; call M-x slide-init to start with the current buffer
-;;;; use M-] and M-[ to navigate
+;;;;
+;;;; use s-] and s-[ to navigate (note: that's the Super, or Windows,
+;;;; or Cmd key, depending on your OS and its configuration).
+;;;;
 ;;;; use M-x slide-quit to stop
 ;;;;
 ;;;; currently messes with the global font settings. sorry about that.
