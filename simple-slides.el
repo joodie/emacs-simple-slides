@@ -1,4 +1,5 @@
-;;;; show page-break separated pages as slides.
+;;;; show page-break (^L) separated files as slides.
+;;;;
 ;;;; call M-x slide-init to start with the current buffer
 ;;;; use M-] and M-[ to navigate
 ;;;; use M-x slide-quit to stop
