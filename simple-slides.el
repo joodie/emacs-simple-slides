@@ -1,16 +1,6 @@
-;;;; show page-break (^L) separated files as slides.
-;;;;
-;;;; call M-x slide-init to start with the current buffer
-;;;;
-;;;; use s-] and s-[ to navigate (note: that's the Super, or Windows,
-;;;; or Cmd key, depending on your OS and its configuration).
-;;;;
-;;;; use M-x slide-quit to stop
-;;;;
-;;;; currently messes with the global font settings. sorry about that.
-;;;;
- 
-;; (c) 2011 Joost Diepenmaat, Zeekat Softwareontwikkeling.
+;;; simple-slides.el --- Show page-break (^L) separated files as slides.
+
+;; Copyright (c) 2011 Joost Diepenmaat, Zeekat Softwareontwikkeling.
 ;;          joost@zeekat.nl http://joost.zeekat.nl/
 
 
@@ -27,22 +17,35 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(defun slide-show-next-page
-  ()
+;;; Commentary:
+;;
+;; show page-break (^L) separated files as slides.
+;;
+;; call M-x slide-init to start with the current buffer
+;;
+;; use s-] and s-[ to navigate (note: that's the Super, or Windows,
+;; or Cmd key, depending on your OS and its configuration).
+;;
+;; use M-x slide-quit to stop
+;;
+;; currently messes with the global font settings. sorry about that.
+;;
+
+;;; Code:
+
+(defun slide-show-next-page ()
   (interactive)
   (goto-line 0) ; narrow to next page gets confused if point is at
                 ; last line
   (narrow-to-page 1))
 
-(defun slide-show-prev-page
-  ()
+(defun slide-show-prev-page ()
   (interactive)
   (goto-line 0)
   (narrow-to-page -1)
   (goto-line 0))
 
-(defun slide-init
-  ()
+(defun slide-init ()
   (interactive)
   (widen)
   (goto-line 0)
@@ -52,13 +55,13 @@
   (set-face-attribute 'default nil
                     :family "Inconsolata" :height 250 :weight 'normal))
 
-(defun slide-quit
-  ()
-  (interactive) 
+(defun slide-quit ()
+  (interactive)
   (widen)
   (set-face-attribute 'default nil
-                      :family "Inconsolata" :height (case system-type
-                                                      ('gnu/linux 130)
-                                                      ('darwin 145)) :weight 'normal))
+		      :family "Inconsolata"
+		      :height (case system-type
+				('gnu/linux 130)
+				('darwin 145)) :weight 'normal))
 
 (provide 'simple-slides)
