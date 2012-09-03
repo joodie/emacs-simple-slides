@@ -1,8 +1,9 @@
 ;;; simple-slides.el --- Show page-break (^L) separated files as slides.
 
 ;; Copyright (c) 2011 Joost Diepenmaat, Zeekat Softwareontwikkeling.
-;;          joost@zeekat.nl http://joost.zeekat.nl/
+;; joost@zeekat.nl http://joost.zeekat.nl/
 
+
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -11,27 +12,27 @@
 
 ;; This program is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+;; along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+
 
 ;;; Commentary:
 ;;
 ;; show page-break (^L) separated files as slides.
+;; Btw, to insert ^L in an Emacs buffer, hit 'C-q C-l'
 ;;
 ;; call M-x slide-init to start with the current buffer
 ;;
-;; use s-] and s-[ to navigate (note: that's the Super, or Windows,
-;; or Cmd key, depending on your OS and its configuration).
+;; use C-v and M-v to navigate, as usual. 
 ;;
 ;; use M-x slide-quit to stop
 ;;
-;; currently messes with the global font settings. sorry about that.
-;;
 
-;;; Code:
+
 
 (defun slide-show-next-page ()
   (interactive)
@@ -39,29 +40,37 @@
                 ; last line
   (narrow-to-page 1))
 
+
+
 (defun slide-show-prev-page ()
   (interactive)
   (goto-line 0)
   (narrow-to-page -1)
   (goto-line 0))
 
+
+
 (defun slide-init ()
   (interactive)
   (widen)
   (goto-line 0)
   (narrow-to-page 0)
-  (local-set-key [(super \])] #'slide-show-next-page)
-  (local-set-key [(super \[)] #'slide-show-prev-page)
-  (set-face-attribute 'default nil
-                    :family "Inconsolata" :height 250 :weight 'normal))
+  (local-set-key [(C v)] #'slide-show-next-page)
+  (local-set-key [(M v)] #'slide-show-prev-page)
+  ; you might play with the number. In case size does matter.
+  (text-scale-adjust 3))
+
+
 
 (defun slide-quit ()
   (interactive)
   (widen)
-  (set-face-attribute 'default nil
-		      :family "Inconsolata"
-		      :height (case system-type
-				('gnu/linux 130)
-				('darwin 145)) :weight 'normal))
+  (text-scale-adjust 0)
+  (local-unset-key [(C v)])
+  (local-unset-key [(M v)]))
 
-(provide 'simple-slides)
+
+
+; The END.
+
+
